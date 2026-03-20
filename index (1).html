@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>ClearTest — UX Case Study 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;font-size:16px;}
+:root{
+  --bg:#ECEADE; --w:#FAFAF7; --dk:#3A4228; --ol:#566B38; --ol2:#8B9E6B;
+  --tx:#1C1C1A; --mu:#6B6B5E; --li:#A8A89A; --bd:#DDD9CC; --sd:#C4B99A;
+  --rs:#B85C38; --em:#E8F0DF; --er:#FDECEA;
+  --section-gap: 88px;
+}
+body{background:var(--bg); color:var(--tx); font-family:"DM Sans",sans-serif; line-height:1.7; overflow-x:hidden;}
+#nav{position:fixed; top:0; left:0; right:0; z-index:400; display:flex; align-items:center; justify-content:space-between; padding:12px 52px; background:rgba(236,234,222,.96); backdrop-filter:blur(20px); border-bottom:1px solid var(--bd); transition:box-shadow .3s;}
+#nav.sc{box-shadow:0 4px 24px rgba(44,51,32,.09);}
+.n-logo{font-family:"Playfair Display",serif; font-size:16px; font-weight:700; color:var(--dk); display:flex; align-items:center; gap:8px; text-decoration:none;}
+.n-links{display:flex; gap:2px;}
+.n-links a{font-size:11px; font-weight:500; color:var(--mu); text-decoration:none; padding:5px 10px; border-radius:100px; white-space:nowrap; transition:all .17s;}
+.n-links a:hover,.n-links a.on{background:var(--dk); color:#fff;}
+.n-cta{display:flex; align-items:center; gap:6px; background:var(--dk); color:#fff; padding:7px 14px; border-radius:100px; font-size:11px; font-weight:600; text-decoration:none; transition:opacity .2s; white-space:nowrap;}
+.n-cta:hover{opacity:.82;}
+.mw{max-width:1140px; margin:0 auto; padding:0 52px;}
+.sec{padding-top:var(--section-gap); padding-bottom:var(--section-gap);}
+.sec-sm{padding-top:64px; padding-bottom:0;}
+.label{font-family:"DM Mono",monospace; font-size:10px; color:var(--sd); letter-spacing:2.5px; text-transform:uppercase; display:block; margin-bottom:11px;}
+h2.sh{font-family:"Playfair Display",serif; font-size:clamp(26px,2.8vw,40px); font-weight:700; color:var(--dk); line-height:1.15; margin-bottom:14px;}
+h2.sh em{font-style:italic; color:var(--ol);}
+.rule{width:40px; height:2px; background:var(--ol); margin:0 0 28px;}
+.card{background:var(--w); border-radius:14px; border:1px solid var(--bd);}
+.g2{display:grid; grid-template-columns:1fr 1fr; gap:36px; align-items:start;}
+.g2w{display:grid; grid-template-columns:1.15fr 1fr; gap:36px; align-items:start;}
+.g3{display:grid; grid-template-columns:repeat(3,1fr); gap:12px;}
+.g4{display:grid; grid-template-columns:repeat(4,1fr); gap:11px;}
+.g2eq{display:grid; grid-template-columns:1fr 1fr; gap:11px;}
+.hero{min-height:100vh; padding:130px 52px 80px; display:grid; grid-template-columns:1fr 400px; gap:60px; align-items:center; max-width:1140px; margin:0 auto;}
+.h-tag{display:inline-flex; align-items:center; gap:7px; background:var(--w); border:1px solid var(--bd); border-radius:100px; padding:6px 14px; font-size:10px; font-weight:600; color:var(--ol); letter-spacing:1.5px; text-transform:uppercase; margin-bottom:20px;}
+.h-tag span{width:5px; height:5px; border-radius:50%; background:var(--ol2);}
+h1.ht{font-family:"Playfair Display",serif; font-size:clamp(34px,4.2vw,58px); font-weight:700; line-height:1.07; color:var(--dk); margin-bottom:18px;}
+h1.ht em{font-style:italic; color:var(--ol);}
+.h-sub{font-size:14px; color:var(--mu); line-height:1.85; max-width:420px; margin-bottom:28px;}
+.h-meta{display:flex; gap:20px; flex-wrap:wrap;}
+.mp span:first-child{font-size:9px; color:var(--li); letter-spacing:1.5px; text-transform:uppercase; display:block; margin-bottom:2px;}
+.mp span:last-child{font-size:12px; font-weight:600; color:var(--dk);}
+.h-phone{position:relative; display:flex; align-items:center; justify-content:center;}
+.hp-device{width:200px; background:#0D0D0D; border-radius:36px; padding:7px; box-shadow:0 40px 80px rgba(44,51,32,.32), 0 0 0 1px rgba(255,255,255,.08); position:relative; z-index:2;}
+.hp-island{width:80px; height:22px; background:#000; border-radius:14px; margin:0 auto 4px;}
+.hp-screen{border-radius:28px; overflow:hidden; background:#3A4228; height:360px; display:flex; align-items:center; justify-content:center;}
+.hp-screen-inner{text-align:center; padding:20px;}
+.hp-screen-inner p{font-family:"Playfair Display",serif; font-size:14px; color:#fff; font-style:italic; margin-top:10px;}
+@keyframes float{0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)}}
+.hp-float{animation:float 4s ease-in-out infinite;}
+.h-chip{position:absolute; background:var(--w); border:1px solid var(--bd); border-radius:10px; padding:7px 12px; font-size:11px; font-weight:600; color:var(--dk); box-shadow:0 6px 18px rgba(44,51,32,.1); white-space:nowrap;}
+@keyframes fadein{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+.fade{animation:fadein .7s ease forwards; opacity:0;}
+.d1{animation-delay:.1s} .d2{animation-delay:.25s} .d3{animation-delay:.4s} .d4{animation-delay:.55s}
+.ovr{display:grid; grid-template-columns:repeat(3,1fr); background:var(--w); border-radius:18px; border:1px solid var(--bd); overflow:hidden;}
+.ovr-col{padding:30px 28px; border-right:1px solid var(--bd);}
+.ovr-col:last-child{border-right:none;}
+.ovr-col h3{font-family:"Playfair Display",serif; font-size:16px; color:var(--dk); margin-bottom:7px;}
+.ovr-col p{font-size:12px; color:var(--mu); line-height:1.75;}
+.app-mock{background:#fff; border-radius:10px; padding:13px; border:1px solid #eee; font-family:sans-serif; max-width:260px;}
+.am-name{font-size:12px; font-weight:700; color:#1a1a1a; margin-bottom:3px;}
+.am-badges{display:flex; align-items:center; gap:6px; margin:4px 0;}
+.am-strike{text-decoration:line-through; color:#999; font-size:11px;}
+.am-badge{background:#e53935; color:white; font-size:9px; font-weight:700; padding:2px 6px; border-radius:3px;}
+.am-price{color:#e53935; font-size:20px; font-weight:800; margin:3px 0;}
+.am-btn{background:#00b5b5; color:white; border:none; border-radius:6px; padding:8px; width:100%; font-size:12px; font-weight:700;}
+.em-pos{background:var(--em); border-radius:12px; padding:15px; border:1px solid #C8D8B8;}
+.em-neg{background:var(--er); border-radius:12px; padding:15px; border:1px solid #EDBDB0;}
+.em-pos h4{font-size:11px; font-weight:700; color:#2C5E1A; margin-bottom:4px;}
+.em-neg h4{font-size:11px; font-weight:700; color:var(--rs); margin-bottom:4px;}
+.em-pos p,.em-neg p{font-size:11px; line-height:1.6;}
+.em-pos p{color:#4A5E35;} .em-neg p{color:#8B3A1E;}
+.em-badge{display:inline-flex; border-radius:6px; padding:2px 8px; font-size:9px; font-weight:700; margin-top:7px;}
+.em-badge.g{background:#C8D8B8; color:#2C5E1A;}
+.em-badge.r{background:#EDBDB0; color:var(--rs);}
+.insight-box{background:var(--dk); border-radius:13px; padding:20px 22px;}
+.insight-box .label{color:var(--sd); margin-bottom:7px;}
+.insight-box p{font-size:12px; color:rgba(255,255,255,.75); line-height:1.8;}
+.insight-box strong{color:#fff;}
+.broken-flow{background:var(--w); border-radius:13px; padding:16px; border:1px solid var(--bd);}
+.bf-step{display:flex; gap:8px; align-items:flex-start; margin-bottom:7px;}
+.bf-num{width:18px; height:18px; border-radius:50%; background:var(--rs); color:white; display:flex; align-items:center; justify-content:center; font-size:9px; font-weight:700; flex-shrink:0; margin-top:1px;}
+.bf-step p{font-size:11px; color:var(--mu); line-height:1.55;}
+.bf-warn{background:var(--er); border-radius:8px; padding:8px 10px; display:flex; gap:7px; align-items:flex-start;}
+.bf-warn p{font-size:11px; color:var(--rs); font-weight:600; line-height:1.45;}
+.uc{background:var(--w); border-radius:13px; padding:18px 15px; border:1px solid var(--bd); transition:transform .2s;}
+.uc:hover{transform:translateY(-2px);}
+.uc .ico{font-size:22px; margin-bottom:8px;}
+.uc h4{font-size:12px; font-weight:700; color:var(--dk); margin-bottom:3px;}
+.uc p{font-size:11px; color:var(--mu); line-height:1.55;}
+.stat-card{background:var(--w); border-radius:13px; padding:18px 20px; border:1px solid var(--bd); display:flex; gap:14px; align-items:flex-start;}
+.stat-num{font-family:"Playfair Display",serif; font-size:30px; font-weight:700; color:var(--ol); flex-shrink:0; line-height:1;}
+.stat-card p{font-size:12px; color:var(--mu); line-height:1.65;}
+.stat-card p strong{color:var(--dk);}
+.stat-src{font-family:"DM Mono",monospace; font-size:9px; color:var(--li); margin-top:4px; display:block;}
+.ctbl{width:100%; border-collapse:collapse; background:var(--w); border-radius:13px; overflow:hidden; border:1px solid var(--bd);}
+.ctbl th{font-size:10px; font-weight:600; color:var(--mu); letter-spacing:.5px; padding:11px 13px; text-align:left; background:#F5F3EB; border-bottom:2px solid var(--bd);}
+.ctbl td{font-size:11px; padding:11px 13px; border-bottom:1px solid var(--bd); color:var(--tx);}
+.ctbl tr:last-child td{border-bottom:none;}
+.ctbl tr.ct td{background:#EFF4E8; font-weight:700;}
+.bb{display:inline-flex; background:var(--er); color:var(--rs); border-radius:20px; padding:2px 8px; font-size:9px; font-weight:700;}
+.bg{display:inline-flex; background:var(--em); color:#3D6B1A; border-radius:20px; padding:2px 8px; font-size:9px; font-weight:700;}
+.bm{display:inline-flex; background:#FFF3E0; color:#92620A; border-radius:20px; padding:2px 8px; font-size:9px; font-weight:700;}
+blockquote{font-family:"Playfair Display",serif; font-size:15px; font-style:italic; color:var(--dk); border-left:3px solid var(--ol); padding-left:18px; margin:18px 0; line-height:1.6;}
+.hmwg{display:grid; grid-template-columns:1fr 1fr; gap:12px;}
+.hmw-dk{background:var(--dk); border-radius:16px; padding:26px 22px;}
+.hmw-lt{background:var(--w); border:1px solid var(--bd); border-radius:16px; padding:26px 22px;}
+.hmw-lbl{font-family:"DM Mono",monospace; font-size:9px; letter-spacing:2px; margin-bottom:9px; display:block;}
+.hmw-dk .hmw-lbl{color:var(--sd);} .hmw-lt .hmw-lbl{color:var(--li);}
+.hmw-dk p,.hmw-lt p{font-family:"Playfair Display",serif; font-size:15px; font-style:italic; line-height:1.6;}
+.hmw-dk p{color:#fff;} .hmw-lt p{color:var(--dk);}
+.p-box{background:var(--ol); border-radius:16px; padding:28px; text-align:center; margin-top:14px;}
+.p-box .plbl{font-family:"DM Mono",monospace; font-size:9px; letter-spacing:2px; color:rgba(255,255,255,.55); margin-bottom:7px; display:block;}
+.p-box p{font-family:"Playfair Display",serif; font-size:20px; font-style:italic; color:#fff; line-height:1.4;}
+.mc{background:var(--w); border-radius:13px; padding:16px; border:1px solid var(--bd); text-align:center;}
+.mc .mi{font-size:20px; margin-bottom:7px;}
+.mc h4{font-size:11px; font-weight:700; color:var(--dk); margin-bottom:3px;}
+.mc p{font-size:10px; color:var(--mu);}
+.excl{background:var(--w); border-radius:12px; padding:15px; border:1px solid var(--bd); display:flex; gap:10px; align-items:flex-start;}
+.xi{width:22px; height:22px; border-radius:50%; background:var(--er); color:var(--rs); display:flex; align-items:center; justify-content:center; font-size:10px; font-weight:800; flex-shrink:0; margin-top:1px;}
+.excl h4{font-size:11px; font-weight:700; color:var(--dk); margin-bottom:3px;}
+.excl p{font-size:11px; color:var(--mu); line-height:1.55;}
+.flow-wrap{background:var(--w); border-radius:16px; padding:32px; border:1px solid var(--bd);}
+.flow-wrap h3{font-family:"Playfair Display",serif; font-size:17px; color:var(--dk); margin-bottom:20px;}
+.flow-row{display:flex; align-items:flex-start; gap:0; flex-wrap:wrap;}
+.flow-step{flex:1; min-width:80px; display:flex; flex-direction:column; align-items:center; text-align:center; position:relative;}
+.flow-step:not(:last-child)::after{content:"→"; position:absolute; right:-6px; top:10px; font-size:12px; color:var(--sd);}
+.flow-circ{width:32px; height:32px; border-radius:50%; background:var(--dk); color:#fff; display:flex; align-items:center; justify-content:center; font-size:11px; margin-bottom:6px; flex-shrink:0;}
+.flow-step h4{font-size:10px; font-weight:700; color:var(--dk); margin-bottom:2px;}
+.flow-step p{font-size:9px; color:var(--mu); line-height:1.4;}
+.kd{background:var(--w); border-radius:13px; padding:20px; border:1px solid var(--bd);}
+.kd h4{font-size:12px; font-weight:700; color:var(--dk); margin-bottom:7px;}
+.kd p{font-size:12px; color:var(--mu); line-height:1.7;}
+.proto-shell{background:var(--dk); border-radius:24px; padding:56px 52px; display:flex; gap:52px; align-items:flex-start; flex-wrap:wrap;}
+.proto-left{flex:1; min-width:260px;}
+.proto-left .label{color:rgba(255,255,255,.35);}
+.proto-left h2{font-family:"Playfair Display",serif; font-size:clamp(24px,2.5vw,36px); font-weight:700; color:#fff; margin-bottom:10px; line-height:1.2;}
+.proto-left h2 em{font-style:italic; color:var(--sd);}
+.proto-left > p{font-size:13px; color:rgba(255,255,255,.48); line-height:1.8; margin-bottom:26px;}
+.proto-step{display:flex; align-items:center; gap:10px; padding:10px 12px; background:rgba(255,255,255,.07); border-radius:10px; margin-bottom:8px;}
+.proto-step span:first-child{font-size:16px;}
+.proto-step span:last-child{font-size:12px; color:rgba(255,255,255,.6);}
+.proto-figma-col{flex:1; min-width:300px;}
+.oc{background:var(--w); border-radius:14px; padding:22px 18px; border:1px solid var(--bd); text-align:center; transition:transform .2s;}
+.oc:hover{transform:translateY(-3px);}
+.oc .oi{font-size:24px; margin-bottom:8px;}
+.oc h4{font-size:12px; font-weight:700; color:var(--dk); margin-bottom:5px;}
+.oc p{font-size:12px; color:var(--mu); line-height:1.6;}
+.rb{background:var(--dk); border-radius:18px; padding:36px; display:grid; grid-template-columns:1fr 1fr; gap:32px; margin-top:20px;}
+.rb h3{font-family:"Playfair Display",serif; font-size:16px; color:#fff; margin-bottom:8px;}
+.rb p{font-size:12px; color:rgba(255,255,255,.64); line-height:1.8;}
+.rb ul{list-style:none; display:flex; flex-direction:column; gap:7px; margin-top:9px;}
+.rb li{font-size:12px; color:rgba(255,255,255,.64); line-height:1.6; padding-left:13px; position:relative;}
+.rb li::before{content:"→"; position:absolute; left:0; color:var(--sd);}
+.ai-grid{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:16px;}
+.aic{border-radius:12px; padding:18px; border:1px solid var(--bd);}
+.aiu{background:var(--em);} .ain{background:var(--er);}
+.aib{display:inline-flex; padding:3px 9px; border-radius:100px; font-size:9px; font-weight:700; margin-bottom:7px;}
+.aiby{background:#2C5E1A; color:#fff;} .aibn{background:var(--rs); color:#fff;}
+.aic h4{font-size:11px; font-weight:700; margin-bottom:5px;}
+.aiu h4{color:#2C5E1A;} .ain h4{color:var(--rs);}
+.aic p{font-size:11px; color:var(--mu); line-height:1.6;}
+.cta-sec{text-align:center; padding:80px 52px;}
+.cta-sec h2{font-family:"Playfair Display",serif; font-size:clamp(30px,3.5vw,46px); font-weight:700; color:var(--dk); line-height:1.15; margin-bottom:14px;}
+.cta-sec h2 em{font-style:italic; color:var(--ol);}
+.cta-sub{font-size:14px; color:var(--mu); margin-bottom:28px;}
+.btn-dk{display:inline-flex; align-items:center; gap:7px; background:var(--dk); color:#fff; padding:12px 26px; border-radius:100px; font-size:13px; font-weight:600; text-decoration:none; transition:transform .17s,box-shadow .17s;}
+.btn-dk:hover{transform:translateY(-2px); box-shadow:0 10px 24px rgba(44,51,32,.2);}
+.btn-lt{display:inline-flex; background:transparent; color:var(--dk); padding:12px 26px; border-radius:100px; font-size:13px; font-weight:600; text-decoration:none; border:1.5px solid var(--bd); margin-left:9px; transition:border-color .17s;}
+.btn-lt:hover{border-color:var(--dk);}
+footer{border-top:1px solid var(--bd); padding:24px 52px; display:flex; justify-content:space-between; align-items:center; max-width:1140px; margin:0 auto; font-size:11px; color:var(--li);}
+.rv{opacity:0; transform:translateY(16px); transition:opacity .55s ease,transform .55s ease;}
+.rv.vis{opacity:1; transform:translateY(0);}
+
+/* CONTACT MODAL */
+.modal-overlay{position:fixed;inset:0;z-index:1000;background:rgba(28,28,26,.55);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;}
+.modal-overlay.open{opacity:1;pointer-events:all;}
+.modal-box{background:var(--w);border-radius:22px;padding:36px 32px;width:100%;max-width:400px;margin:18px;box-shadow:0 24px 60px rgba(44,51,32,.22);transform:translateY(20px);transition:transform .28s cubic-bezier(.34,1.56,.64,1);position:relative;}
+.modal-overlay.open .modal-box{transform:translateY(0);}
+.modal-close{position:absolute;top:14px;right:14px;width:30px;height:30px;border-radius:50%;background:var(--bg);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;color:var(--mu);transition:background .15s;}
+.modal-close:hover{background:var(--bd);}
+.modal-title{font-family:"Playfair Display",serif;font-size:22px;font-weight:700;color:var(--dk);margin-bottom:4px;}
+.modal-sub{font-size:12px;color:var(--mu);margin-bottom:24px;}
+.contact-item{display:flex;align-items:center;gap:14px;padding:14px 16px;border-radius:13px;border:1px solid var(--bd);margin-bottom:10px;text-decoration:none;transition:all .17s;background:var(--w);}
+.contact-item:hover{border-color:var(--dk);background:var(--em);transform:translateY(-1px);}
+.contact-item:last-child{margin-bottom:0;}
+.ci-ico{width:40px;height:40px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0;}
+.ci-ico.wa{background:#E8F5E9;} .ci-ico.em{background:#E8F0DF;} .ci-ico.ph{background:#FFF3E0;}
+.ci-txt span:first-child{display:block;font-size:10px;color:var(--li);letter-spacing:.5px;text-transform:uppercase;margin-bottom:2px;}
+.ci-txt span:last-child{font-size:13px;font-weight:600;color:var(--dk);}
+
+@media(max-width:1000px){
+  #nav{padding:11px 18px;} .n-links{display:none;}
+  .hero{grid-template-columns:1fr; padding-top:100px;} .h-phone{display:none;}
+  .mw{padding:0 18px;}
+  .ovr{grid-template-columns:1fr;} .ovr-col{border-right:none; border-bottom:1px solid var(--bd);}
+  .ovr-col:last-child{border-bottom:none;}
+  .g2,.g2w,.hmwg,.rb,.g2eq{grid-template-columns:1fr;}
+  .g4{grid-template-columns:1fr 1fr;} .g3{grid-template-columns:1fr;}
+  .ai-grid{grid-template-columns:1fr;}
+  .proto-shell{padding:28px 18px; flex-direction:column; align-items:center;}
+  .proto-left{min-width:unset; width:100%;}
+  .proto-figma-col{width:100%;}
+  .cta-sec{padding:60px 18px;}
+  footer{flex-direction:column; gap:8px; text-align:center; padding:24px 18px;}
+}
+</style>
+</head>
+<body>
+
+<nav id="nav">
+  <a href="#" class="n-logo">
+    <svg width="16" height="20" viewBox="0 0 16 20" fill="none">
+      <path d="M8 1C8 1 1 7.5 1 13a7 7 0 0014 0C15 7.5 8 1 8 1z" fill="#566B38" opacity=".9"/>
+      <ellipse cx="5.5" cy="13" rx="1.8" ry="2.8" fill="white" opacity=".28" transform="rotate(-18 5.5 13)"/>
+    </svg>
+    ClearTest
+  </a>
+  <div class="n-links">
+    <a href="#problem">Problem</a>
+    <a href="#research">Research</a>
+    <a href="#define">Define</a>
+    <a href="#ideation">Ideation</a>
+    <a href="#prototype">Try App</a>
+    <a href="#outcomes">Outcomes</a>
+    <a href="#ai-use">AI Use</a>
+  </div>
+  <a href="https://www.figma.com/design/dDRFckYOgS0aooLepOuYK3/Case-study-1?node-id=0-1&t=1mggChQXF1MSmIfA-1" target="_blank" class="n-cta">
+    <svg width="11" height="11" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="9" height="9" rx="2" fill="white" opacity=".9"/><rect x="13" y="2" width="9" height="9" rx="2" fill="white" opacity=".7"/><rect x="2" y="13" width="9" height="9" rx="2" fill="white" opacity=".7"/><rect x="13" y="13" width="9" height="9" rx="4.5" fill="white" opacity=".4"/></svg>
+    Open in Figma
+  </a>
+</nav>
+
+<div class="hero">
+  <div>
+    <div class="h-tag fade d1"><span></span>UX Case Study &middot; 2026</div>
+    <h1 class="ht fade d2">Designing for <em>clarity,</em><br/>not commerce.</h1>
+    <p class="h-sub fade d3">ClearTest reimagines medical test booking in India — replacing price-driven impulse decisions with informed, confident ones. Because health decisions should never be made in a hurry.</p>
+    <div class="h-meta fade d4">
+      <div class="mp"><span>Role</span><span>Solo Product Designer</span></div>
+      <div class="mp"><span>Duration</span><span>1 Week</span></div>
+      <div class="mp"><span>Platform</span><span>iOS Mobile</span></div>
+      <div class="mp"><span>Year</span><span>2026</span></div>
+    </div>
+  </div>
+  <div class="h-phone fade d4">
+    <svg style="position:absolute;top:-30px;right:-30px;opacity:.06" width="180" height="180" viewBox="0 0 180 180"><circle cx="90" cy="90" r="80" stroke="#2C3320" stroke-width="1" fill="none" stroke-dasharray="4 5"/></svg>
+    <div class="hp-float">
+      <div class="hp-device">
+        <div class="hp-island"></div>
+        <div class="hp-screen">
+          <div class="hp-screen-inner">
+            <svg width="36" height="44" viewBox="0 0 36 44" fill="none"><path d="M18 2C18 2 2 14 2 28a16 16 0 0032 0C34 14 18 2 18 2z" fill="white" opacity=".85"/><ellipse cx="12" cy="28" rx="3.5" ry="6" fill="white" opacity=".22" transform="rotate(-16 12 28)"/></svg>
+            <p>ClearTest</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="h-chip" style="top:24px;left:-72px;">🩸 Understand first</div>
+    <div class="h-chip" style="bottom:50px;right:-78px;background:var(--ol);color:#fff;border:none;">✓ Correct test booked</div>
+  </div>
+</div>
+
+<div class="mw" style="padding-bottom:72px;">
+  <div class="ovr">
+    <div class="ovr-col">
+      <span class="label">The Problem</span>
+      <h3>E-commerce UI in healthcare</h3>
+      <p>Every major diagnostic app treats test booking like shopping — strikethrough prices, discount badges, Add to Cart. This causes real medical harm.</p>
+    </div>
+    <div class="ovr-col">
+      <span class="label">The Insight</span>
+      <h3>Info exists. Guidance doesn't.</h3>
+      <p>Apps provide test descriptions. The gap: none guide users toward the clinically correct choice. Being informed is not the same as being guided.</p>
+    </div>
+    <div class="ovr-col">
+      <span class="label">The Solution</span>
+      <h3>Clarity before commerce</h3>
+      <p>ClearTest gates every booking behind understanding. Users feel confident — not anxious — because they know exactly what they booked and why.</p>
+    </div>
+  </div>
+</div>
+
+<section id="problem">
+<div class="mw sec">
+  <span class="label">01 &mdash; The Problem</span>
+  <h2 class="sh">When booking a test feels like<br/><em>buying a shirt.</em></h2>
+  <div class="rule"></div>
+  <div class="g2">
+    <div style="display:flex;flex-direction:column;gap:14px;">
+      <p style="font-size:14px;color:var(--mu);line-height:1.85;">Walk into any major diagnostic app in India &mdash; Apollo 247, 1mg, Practo, Thyrocare &mdash; and you'll find the same experience: a crossed-out MRP, a "60% off" badge, and a big <em>Add to Cart</em> button.</p>
+      <p style="font-size:14px;color:var(--mu);line-height:1.85;">Most of them <em>do</em> provide test information. That's not the gap. The gap is that none of them <strong style="color:var(--dk);">guide</strong> the user toward the right decision. A user who read a description and still booked the wrong test is not uninformed — they're misguided.</p>
+      <div class="card" style="padding:14px;">
+        <div class="app-mock">
+          <div class="am-name">RBS (Random Blood Sugar) Test</div>
+          <div class="am-badges"><span class="am-strike">MRP ₹247</span><span class="am-badge">60% OFF</span></div>
+          <div class="am-price">₹99</div>
+          <button class="am-btn">Add To Cart</button>
+        </div>
+        <p style="font-size:10px;color:var(--li);margin-top:9px;font-style:italic;">Apollo 247 — price dominates. Information exists but guidance to the correct test does not.</p>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <div class="g2eq">
+        <div class="em-pos">
+          <div style="font-size:18px;margin-bottom:6px;">😌</div>
+          <h4>With ClearTest</h4>
+          <p>"I understand what this test checks. I'm booking the right one."</p>
+          <span class="em-badge g">Confident ✓</span>
+        </div>
+        <div class="em-neg">
+          <div style="font-size:18px;margin-bottom:6px;">😟</div>
+          <h4>With current apps</h4>
+          <p>"I read the description but I'm not sure if this cheaper version is what my doctor meant."</p>
+          <span class="em-badge r">Anxious ✗</span>
+        </div>
+      </div>
+      <div class="insight-box">
+        <span class="label">Core Insight</span>
+        <p>Apps provide information. <strong>None of them guide.</strong> The difference between knowing a test exists and knowing it's the right test for you is a gap that only design can bridge.</p>
+      </div>
+      <div class="broken-flow">
+        <p style="font-size:11px;font-weight:700;color:var(--dk);margin-bottom:9px;">The broken flow</p>
+        <div class="bf-step"><div class="bf-num">1</div><p>Doctor prescribes RBS — before food AND after food</p></div>
+        <div class="bf-step"><div class="bf-num">2</div><p>App lists "RBS Before Food ₹30" and "RBS After Food ₹50" as separate options</p></div>
+        <div class="bf-step"><div class="bf-num">3</div><p>User reads description, feels informed, books ₹30 — confidently wrong</p></div>
+        <div class="bf-warn"><div class="bf-num" style="background:var(--rs);">!</div><p>Wrong test → wrong result → delayed or missed diagnosis</p></div>
+      </div>
+    </div>
+  </div>
+  <div class="g4" style="margin-top:28px;">
+    <div class="uc rv"><div class="ico">👴</div><h4>Elders</h4><p>Limited digital and medical literacy. Price is the only signal they can interpret.</p></div>
+    <div class="uc rv"><div class="ico">📱</div><h4>Remote bookers</h4><p>Booking for parents from a distance. No context to clarify with a doctor.</p></div>
+    <div class="uc rv"><div class="ico">⏱</div><h4>Users in a hurry</h4><p>Read the info, felt informed, picked fast. Misled by UI structure, not ignorance.</p></div>
+    <div class="uc rv"><div class="ico">💰</div><h4>Price-sensitive</h4><p>Even after reading the description, the cheaper option feels like the smarter one.</p></div>
+  </div>
+</div>
+</section>
+
+<section id="research">
+<div class="mw sec">
+  <div class="card" style="padding:46px;">
+    <span class="label">02 &mdash; Research &amp; Discovery</span>
+    <h2 class="sh">The evidence for<br/><em>design intervention.</em></h2>
+    <div class="rule"></div>
+    <div class="g2w">
+      <div style="display:flex;flex-direction:column;gap:11px;">
+        <div class="stat-card rv">
+          <div class="stat-num">68%</div>
+          <div><p>Of all lab errors occur in the <strong>pre-analytical phase</strong> — which includes test selection and ordering by the patient.</p><span class="stat-src">📄 Mrazek et al., Biochemia Medica 2020</span></div>
+        </div>
+        <div class="stat-card rv">
+          <div class="stat-num">73%</div>
+          <div><p>Of testing process errors are <strong>preventable</strong> — meaning design intervention at the booking stage is both feasible and high-impact.</p><span class="stat-src">📄 Mrazek et al., Biochemia Medica 2020</span></div>
+        </div>
+        <div class="stat-card rv">
+          <div class="stat-num">#1</div>
+          <div><p><strong>Inappropriate test selection</strong> is the most frequent error identified across the entire lab testing process.</p><span class="stat-src">📄 Mrazek et al., Biochemia Medica 2020</span></div>
+        </div>
+      </div>
+      <div>
+        <h3 style="font-family:'Playfair Display',serif;font-size:19px;color:var(--dk);margin-bottom:7px;">Competitive Analysis</h3>
+        <p style="font-size:13px;color:var(--mu);line-height:1.75;margin-bottom:14px;">Most apps <em>do</em> have test information. The critical gap is <strong style="color:var(--dk);">guidance</strong> — none actively steer users toward the clinically correct test, and none measure confidence at checkout.</p>
+        <table class="ctbl">
+          <thead><tr><th>Platform</th><th>Test info?</th><th>Guides to right test?</th><th>User confident?</th></tr></thead>
+          <tbody>
+            <tr><td><strong>Apollo 247</strong></td><td><span class="bm">⚠ Partial</span></td><td><span class="bb">✕ None</span></td><td><span class="bb">✕ Anxious</span></td></tr>
+            <tr><td><strong>1mg</strong></td><td><span class="bm">⚠ Partial</span></td><td><span class="bb">✕ None</span></td><td><span class="bb">✕ Anxious</span></td></tr>
+            <tr><td><strong>Practo</strong></td><td><span class="bm">⚠ Partial</span></td><td><span class="bb">✕ None</span></td><td><span class="bb">✕ Anxious</span></td></tr>
+            <tr><td><strong>Thyrocare</strong></td><td><span class="bm">⚠ Partial</span></td><td><span class="bb">✕ None</span></td><td><span class="bb">✕ Anxious</span></td></tr>
+            <tr class="ct"><td style="color:var(--ol);">✦ ClearTest</td><td><span class="bg">✓ Plain language</span></td><td><span class="bg">✓ Stage-gated</span></td><td><span class="bg">✓ Confident</span></td></tr>
+          </tbody>
+        </table>
+        <p style="font-size:9px;color:var(--li);margin-top:7px;">⚠ = feature present but insufficient &nbsp;|&nbsp; ✕ = absent &nbsp;|&nbsp; ✓ = present</p>
+        <blockquote style="margin-top:18px;">"Information without guidance is just noise. In healthcare, it's dangerous noise."</blockquote>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="define">
+<div class="mw sec">
+  <span class="label">03 &mdash; Define &amp; Synthesis</span>
+  <h2 class="sh">The questions that<br/><em>shaped everything.</em></h2>
+  <div class="rule"></div>
+  <div class="hmwg">
+    <div class="hmw-dk rv">
+      <span class="hmw-lbl">HMW 01</span>
+      <p>"How might we help patients book the correct doctor-prescribed test without requiring them to understand medical terminology?"</p>
+    </div>
+    <div class="hmw-lt rv">
+      <span class="hmw-lbl">HMW 02</span>
+      <p>"How might we design a booking experience that makes users feel the app is working for their health — not for a sale?"</p>
+    </div>
+  </div>
+  <div class="p-box">
+    <span class="plbl">Design Principle</span>
+    <p>Clarity before commerce. Understand first, book second, pay last.</p>
+  </div>
+  <div class="g4" style="margin-top:14px;">
+    <div class="mc rv"><div class="mi">🎯</div><h4>Books correct test</h4><p>Guidance is working</p></div>
+    <div class="mc rv"><div class="mi">😌</div><h4>Feels confident</h4><p>Not anxious at checkout</p></div>
+    <div class="mc rv"><div class="mi">🔄</div><h4>Returns to book again</h4><p>Trust over price</p></div>
+    <div class="mc rv"><div class="mi">📖</div><h4>Reads explanation</h4><p>Content is being used</p></div>
+  </div>
+</div>
+</section>
+
+<section id="ideation">
+<div class="mw sec">
+  <span class="label">04 &mdash; Ideation &amp; Design Decisions</span>
+  <h2 class="sh">What we <em>didn't</em> build,<br/>and why it matters.</h2>
+  <div class="rule"></div>
+  <p style="font-size:14px;color:var(--mu);max-width:520px;line-height:1.85;margin-bottom:22px;">Most health-tech products compete on speed. ClearTest made the opposite bet — health decisions should require conscious effort, not less of it.</p>
+  <div class="g2eq" style="margin-bottom:20px;">
+    <div style="display:flex;flex-direction:column;gap:9px;">
+      <div class="excl rv"><div class="xi">✕</div><div><h4>AI-powered recommendations</h4><p>Clinical authority belongs to the doctor. We surface the prescription — not an AI's interpretation.</p></div></div>
+      <div class="excl rv"><div class="xi">✕</div><div><h4>Prescription scanning / auto-fill</h4><p>Removes conscious engagement. The reading moment is the most important. We protect it.</p></div></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:9px;">
+      <div class="excl rv"><div class="xi">✕</div><div><h4>1-click booking</h4><p>Speed optimisation in healthcare isn't a feature — it's a liability. Friction here is intentional.</p></div></div>
+      <div class="excl rv"><div class="xi">✕</div><div><h4>Price-first layout</h4><p>Anchors decisions to cost before understanding. The cheapest option is rarely clinically correct.</p></div></div>
+    </div>
+  </div>
+  <div class="flow-wrap">
+    <h3>The stage-gated flow</h3>
+    <div class="flow-row">
+      <div class="flow-step"><div class="flow-circ">📋</div><h4>Upload / Search</h4><p>Prescription or test name</p></div>
+      <div class="flow-step"><div class="flow-circ">📖</div><h4>Understand</h4><p>Plain language first</p></div>
+      <div class="flow-step"><div class="flow-circ">✓</div><h4>Confirm intent</h4><p>"I understood — book this"</p></div>
+      <div class="flow-step"><div class="flow-circ">₹</div><h4>Pricing</h4><p>Transparent breakdown</p></div>
+      <div class="flow-step"><div class="flow-circ">💳</div><h4>Pay</h4><p>UPI / Card / At pickup</p></div>
+      <div class="flow-step"><div class="flow-circ">🕐</div><h4>Schedule</h4><p>Choose collection slot</p></div>
+    </div>
+  </div>
+  <div class="g2" style="margin-top:14px;">
+    <div class="kd rv"><h4>🖼️ Medical image before price</h4><p>The test detail screen leads with an anatomical visual — making the abstract clinical concept tangible before any ₹ appears on screen.</p></div>
+    <div class="kd rv"><h4>⚖️ "Skip &amp; Book Now" as friction</h4><p>The secondary CTA uses the word "Skip" — users must actively choose to bypass understanding. It's impossible to miss accidentally.</p></div>
+    <div class="kd rv"><h4>📊 Transparent pricing only</h4><p>Test Cost + GST + Pickup. No strikethroughs, no percentage badges. Price is informational here, not persuasive.</p></div>
+    <div class="kd rv"><h4>✓ Test name as confirmation headline</h4><p>The final screen names the test prominently — one last moment to catch a mistake before a collection agent arrives.</p></div>
+  </div>
+</div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     PROTOTYPE SECTION — FIGMA EMBED
+═══════════════════════════════════════════ -->
+<section id="prototype">
+<div class="mw sec-sm" style="padding-bottom:var(--section-gap);">
+  <div class="proto-shell">
+
+    <!-- Left: description -->
+    <div class="proto-left">
+      <span class="label">05 &mdash; Interactive Prototype</span>
+      <h2>Try the <em>full app.</em></h2>
+      <p>Every screen is fully interactive. Tap through the complete booking flow — from searching a test to scheduling a home pickup. Built directly from the Figma designs.</p>
+      <div class="proto-step"><span>📋</span><span>Browse and select a test</span></div>
+      <div class="proto-step"><span>📖</span><span>Understand before booking</span></div>
+      <div class="proto-step"><span>💳</span><span>Pay and schedule pickup</span></div>
+      <div class="proto-step"><span>✅</span><span>Booking confirmed</span></div>
+    </div>
+
+    <!-- Figma Embed — RIGHT SIDE -->
+    <div class="proto-figma-col">
+      <iframe
+        style="border:1px solid rgba(255,255,255,0.1); border-radius:24px; display:block;"
+        width="100%"
+        height="650"
+        src="https://embed.figma.com/proto/dDRFckYOgS0aooLepOuYK3/Case-study-1?node-id=39-99&viewport=198%2C-487%2C0.28&scaling=scale-down&content-scaling=fixed&page-id=0%3A1&embed-host=share"
+        allowfullscreen>
+      </iframe>
+    </div>
+
+  </div>
+</div>
+</section>
+
+<section id="outcomes">
+<div class="mw sec">
+  <span class="label">06 &mdash; Outcomes &amp; Reflection</span>
+  <h2 class="sh">What success<br/><em>looks like.</em></h2>
+  <div class="rule"></div>
+  <div class="g3">
+    <div class="oc rv"><div class="oi">🧪</div><h4>Correct test booked</h4><p>Primary success metric. Users book the test the doctor prescribed, not the cheapest one that sounds similar.</p></div>
+    <div class="oc rv"><div class="oi">😌</div><h4>Confidence post-booking</h4><p>Users feel certain, not anxious, after booking. That's the emotional goal of every screen in ClearTest.</p></div>
+    <div class="oc rv"><div class="oi">🔄</div><h4>Return bookings</h4><p>Users who return aren't coming for deals. They're coming because they trust the product.</p></div>
+  </div>
+  <div class="rb">
+    <div>
+      <h3>What I'd do differently</h3>
+      <p>The biggest gap is the absence of first-hand user research. Given more time, the priority would be observing real people booking tests in the actual moment — not in controlled interviews.</p>
+      <ul>
+        <li>What makes users choose the cheaper test over the prescribed one?</li>
+        <li>Do users actually feel anxious after booking on current apps?</li>
+        <li>At what point in the flow does confidence drop most sharply?</li>
+      </ul>
+    </div>
+    <div>
+      <h3>What this taught me</h3>
+      <p style="margin-bottom:11px;">When designing for something that affects health, honesty is not a design choice — it's a responsibility. Every screen should feel like it's on the user's side.</p>
+      <p style="margin-bottom:11px;">Removing quick booking and leading with explanation felt counterintuitive at first. But for products that handle sensitive decisions, <strong style="color:#fff;">usefulness outlasts attractiveness.</strong></p>
+      <h3 style="margin-top:16px;">ClearTest v2</h3>
+      <p>The next version moves beyond booking into health maintenance — proactively notifying users when it's time to retest based on their history. From a booking tool to a personal health companion.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<section id="ai-use">
+<div class="mw sec">
+  <div class="card" style="padding:44px;">
+    <span class="label">07 &mdash; AI Use Disclosure</span>
+    <h2 class="sh">Honest about<br/><em>how AI was used.</em></h2>
+    <div class="rule"></div>
+    <p style="font-size:14px;color:var(--mu);max-width:560px;line-height:1.8;">Claude AI was used in specific, bounded ways. All design thinking, problem framing, solution decisions and visual design were entirely human-led. Here's exactly what AI helped with — and what it didn't.</p>
+    <div class="ai-grid">
+      <div class="aic aiu rv"><span class="aib aiby">✓ AI Used</span><h4>Clarifying medical terminology</h4><p>Used Claude to translate complex test descriptions into plain language. AI translated jargon — it did not make design decisions.</p></div>
+      <div class="aic aiu rv"><span class="aib aiby">✓ AI Used</span><h4>Research &amp; evidence gathering</h4><p>Used Claude to locate the Mrazek et al. paper and synthesise academic literature on diagnostic booking behaviour. All sources verified independently.</p></div>
+      <div class="aic aiu rv"><span class="aib aiby">✓ AI Used</span><h4>Interactive prototyping</h4><p>Used Claude to build this case study — translating Figma designs into browser code. Code generation, not design generation.</p></div>
+      <div class="aic ain rv"><span class="aib aibn">✕ Not AI</span><h4>Problem identification</h4><p>The insight about e-commerce patterns in medical apps came from direct observation of real apps and real user behaviour — not from AI prompting.</p></div>
+      <div class="aic ain rv"><span class="aib aibn">✕ Not AI</span><h4>Solution decisions</h4><p>Every design decision — the stage-gated flow, leading with understanding, removing quick booking, using "Skip" as friction — came from design reasoning.</p></div>
+      <div class="aic ain rv"><span class="aib aibn">✕ Not AI</span><h4>Visual design</h4><p>All Figma screens — colour system, typography, layout, component design, spacing — were designed entirely by hand. No generative visuals.</p></div>
+    </div>
+    <div style="background:var(--bg);border-radius:11px;padding:16px 18px;margin-top:16px;border:1px solid var(--bd);">
+      <p style="font-size:12px;color:var(--mu);line-height:1.8;"><strong style="color:var(--dk);">Why disclose this?</strong> Because honesty is the entire thesis of this project. ClearTest is about giving users the clarity to make the right decision. It would be inconsistent to be anything less than fully transparent about the tools used to build it.</p>
+    </div>
+  </div>
+</div>
+</section>
+
+<div class="cta-sec mw">
+  <h2>See the original<br/><em>design files.</em></h2>
+  <p class="cta-sub">All screens, components and design decisions in the Figma source file.</p>
+  <a href="https://www.figma.com/design/dDRFckYOgS0aooLepOuYK3/Case-study-1?node-id=0-1&t=1mggChQXF1MSmIfA-1" target="_blank" class="btn-dk">Open in Figma →</a>
+  <button onclick="document.getElementById('contact-modal').classList.add('open')" class="btn-lt" style="cursor:pointer;font-family:'DM Sans',sans-serif;">Get in touch</button>
+</div>
+
+<!-- CONTACT MODAL -->
+<div class="modal-overlay" id="contact-modal" onclick="if(event.target===this)this.classList.remove('open')">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('contact-modal').classList.remove('open')">✕</button>
+    <p class="modal-title">Let's talk.</p>
+    <p class="modal-sub">Reach out on any of these — I reply fast.</p>
+    <a class="contact-item" href="https://wa.me/919535657931" target="_blank">
+      <div class="ci-ico wa">💬</div>
+      <div class="ci-txt"><span>WhatsApp</span><span>+91 95356 57931</span></div>
+    </a>
+    <a class="contact-item" href="mailto:sachinbijapur12@gmail.com">
+      <div class="ci-ico em">✉️</div>
+      <div class="ci-txt"><span>Email</span><span>sachinbijapur12@gmail.com</span></div>
+    </a>
+    <a class="contact-item" href="tel:+919535657931">
+      <div class="ci-ico ph">📞</div>
+      <div class="ci-txt"><span>Mobile</span><span>+91 95356 57931</span></div>
+    </a>
+  </div>
+</div>
+
+<footer>
+  <div style="font-family:'Playfair Display',serif;font-size:13px;color:var(--dk);">ClearTest</div>
+  <div>Solo Product Designer · 1 Week · 2026</div>
+  <div>UX Case Study · Concept Project</div>
+</footer>
+
+<script>
+const nav = document.getElementById("nav");
+window.addEventListener("scroll", () => nav.classList.toggle("sc", scrollY > 20));
+const secEls = [...document.querySelectorAll("section[id]")];
+const nLinks = [...document.querySelectorAll(".n-links a")];
+const sObs = new IntersectionObserver(es => {
+  es.forEach(e => { if (e.isIntersecting) nLinks.forEach(l => l.classList.toggle("on", l.getAttribute("href") === "#" + e.target.id)); });
+}, {threshold: 0.3});
+secEls.forEach(s => sObs.observe(s));
+const rvObs = new IntersectionObserver(es => {
+  es.forEach(e => { if (e.isIntersecting) e.target.classList.add("vis"); });
+}, {threshold: 0.08});
+document.querySelectorAll(".rv").forEach(el => rvObs.observe(el));
+</script>
+</body>
+</html>
